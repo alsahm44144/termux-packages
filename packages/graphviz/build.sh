@@ -7,7 +7,7 @@ TERMUX_PKG_SHA256=8faf3fc25317b1d15166205bf64c1b4aed55a8a6959dcabaa64dbad197e47a
 TERMUX_PKG_DEPENDS="libandroid-glob, libc++, libcairo, pango, libexpat, libltdl, librsvg, libgd, zlib"
 TERMUX_PKG_BREAKS="graphviz-dev"
 TERMUX_PKG_REPLACES="graphviz-dev"
-TERMUX_PKG_BUILD_DEPENDS="libtool"
+TERMUX_PKG_BUILD_DEPENDS="libtool, libtool-static"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --enable-guile=no
@@ -42,7 +42,6 @@ termux_step_post_make_install() {
 	# Some binaries (dot_builtins, gvpack) links against these:
 	cd $TERMUX_PREFIX/lib
 	for lib in graphviz/*.so*; do
-		echo ln -s -f $lib $(basename $lib)
 		ln -s -f $lib $(basename $lib)
 	done
 }
